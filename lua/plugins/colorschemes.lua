@@ -25,4 +25,14 @@ return {
       vim.cmd([[colorscheme sonokai]])
     end,
   },
+  {
+    "junegunn/seoul256.vim",
+    lazy = true,
+    config = function()
+      -- The configuration options should be placed before `colorscheme` command
+      vim.g.seoul256_background = 237
+
+      vim.cmd([[colorscheme seoul256]])
+    end,
+  },
 }
