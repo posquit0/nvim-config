@@ -24,3 +24,16 @@ vim.opt.smarttab = true
 vim.opt.autoindent = true
 -- Do smart autoindenting when starting a new line
 vim.opt.smartindent = true
+
+
+--[[
+  Match and Search
+--]]
+-- Highlight searches
+vim.opt.hlsearch = true
+-- Ignore case of searches
+vim.opt.ignorecase = true
+-- Be sensitive when there's a capital letter
+vim.opt.smartcase = true
+-- Highlight dynamically as pattern is typed
+vim.opt.incsearch = true

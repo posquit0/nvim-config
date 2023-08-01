@@ -4,6 +4,11 @@
 
 local keymap = vim.keymap.set
 
+-- Configure <Leader> and <LocalLeader> keys
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+
 -- <Esc> is too annoying to type
 keymap("i", "jkj", "<ESC>")
 keymap("t", "jkj", "<C-\\><C-n>")
