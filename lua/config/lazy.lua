@@ -20,6 +20,9 @@ require("lazy").setup({
     { import = "plugins.ui.colorschemes" },
     { import = "plugins.ui.dashboard" },
 
+    --- MISC
+    { import = "plugins.editor" },
+
     --- Languages
     { import = "plugins.languages.terraform" },
 
