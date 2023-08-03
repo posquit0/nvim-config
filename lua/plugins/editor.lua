@@ -14,6 +14,17 @@ return {
         end,
         desc = "Explorer NeoTree (root dir)",
       },
+      {
+        "<LocalLeader><F11>",
+        function()
+          require("neo-tree.command").execute({
+            toggle = true,
+            position = "float",
+            dir = require("lazyvim.util").get_root()
+          })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
     }
   }
 }
