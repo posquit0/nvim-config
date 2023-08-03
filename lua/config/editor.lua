@@ -1,3 +1,7 @@
+-- Support EditorConfig
+vim.g.editorconfig = true
+
+
 --[[
   Encoding
 --]]
