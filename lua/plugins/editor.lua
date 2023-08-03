@@ -12,7 +12,7 @@ return {
             dir = require("lazyvim.util").get_root()
           })
         end,
-        desc = "Explorer NeoTree (root dir)",
+        desc = "NeoTree File Explorer (root dir)",
       },
       {
         "<LocalLeader><F11>",
@@ -23,7 +23,7 @@ return {
             dir = require("lazyvim.util").get_root()
           })
         end,
-        desc = "Explorer NeoTree (root dir)",
+        desc = "NeoTree File Explorer (root dir)",
       },
     }
   }
