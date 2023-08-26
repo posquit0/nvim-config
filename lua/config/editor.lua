@@ -1,7 +1,6 @@
 -- Support EditorConfig
 vim.g.editorconfig = true
 
-
 --[[
   Encoding
 --]]
@@ -9,7 +8,8 @@ vim.g.editorconfig = true
 vim.opt.encoding = "utf-8"
 -- File-content encoding for the current buffer
 vim.opt.fileencodings = "utf-8,euc-kr"
-
+-- Add empty newlines at the end of files
+vim.opt.endofline = true
 
 --[[
   Formatting
@@ -29,7 +29,6 @@ vim.opt.autoindent = true
 -- Do smart autoindenting when starting a new line
 vim.opt.smartindent = true
 
-
 --[[
   Match and Search
 --]]
@@ -41,3 +40,13 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 -- Highlight dynamically as pattern is typed
 vim.opt.incsearch = true
+
+--[[
+  Backup and Swap
+--]]
+-- Maintain undo history between sessions
+vim.opt.undofile = true
+-- Set maximum number of changes that can be undone
+vim.opt.undolevels = 256
+-- Don’t create backups when editing files in certain directories
+vim.opt.backupskip = "/private/tmp/*,/tmp/*"
