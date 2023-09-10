@@ -22,6 +22,7 @@ require("lazy").setup({
 
     --- MISC
     { import = "plugins.editor" },
+    { import = "plugins.copilot" },
 
     --- Languages
     { import = "plugins.languages.terraform" },
