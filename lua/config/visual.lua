@@ -1,14 +1,18 @@
 -- Enable if the terminal support true colors
-if vim.fn.has "termguicolors" then
+if vim.fn.has("termguicolors") then
   vim.opt.termguicolors = true
 end
-
 
 local options = {
   opt = {
     number = true, -- Line numbers on
     relativenumber = true, -- Enable relative number for line (Constantly computing the relative nubmers is expensive)
     signcolumn = "yes", -- Always show signcolumns
+
+    breakindent = false, -- Every wrapped line will continue visually indented, thus preserving horizontal blocks of text.
+    linebreak = true, -- Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
+    showbreak = "» ", -- String to put at the start of lines that have been wrapped.
+    wrap = true, -- Change how text is displayed. When on, lines longer than the width of the window will wrap and displaying continues on the next line.
 
     showtabline = 2, -- Only if there are at least two tab pages
 
@@ -20,8 +24,7 @@ local options = {
     showmatch = true, -- Show matching brackets
     matchtime = 5, -- Bracket blinking
   },
-  g = {
-  },
+  g = {},
 }
 
 for scope, table in pairs(options) do
