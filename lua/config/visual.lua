@@ -9,8 +9,8 @@ local options = {
     relativenumber = true, -- Enable relative number for line (Constantly computing the relative nubmers is expensive)
     signcolumn = "yes", -- Always show signcolumns
 
-    breakindent = false, -- Every wrapped line will continue visually indented, thus preserving horizontal blocks of text.
-    linebreak = true, -- Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
+    breakindent = true, -- Every wrapped line will continue visually indented, thus preserving horizontal blocks of text.
+    linebreak = false, -- Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
     showbreak = "» ", -- String to put at the start of lines that have been wrapped.
     wrap = true, -- Change how text is displayed. When on, lines longer than the width of the window will wrap and displaying continues on the next line.
 
