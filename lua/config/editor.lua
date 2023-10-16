@@ -44,6 +44,8 @@ vim.opt.incsearch = true
 --[[
   Backup and Swap
 --]]
+-- No fucking swap files
+vim.opt.swapfile = false
 -- Maintain undo history between sessions
 vim.opt.undofile = true
 -- Set maximum number of changes that can be undone
