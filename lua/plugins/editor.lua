@@ -79,6 +79,45 @@ return {
           hide_dotfiles = true,
           hide_gitignored = false,
         },
+        follow_current_file = {
+          -- This will find and focus the file in the active buffer every time the current file is changed while the tree is open.
+          enabled = true,
+          -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+          leave_dirs_open = false,
+        },
+      },
+      popup_border_style = "NC",
+      sort_case_insensitive = false,
+      sources = {
+        "filesystem",
+        "buffers",
+        "git_status",
+        "document_symbols",
+      },
+      source_selector = {
+        -- toggle to show selector on winbar
+        winbar = true,
+        -- toggle to show selector on statusline
+        statusline = true,
+        tabs_layout = "equal",
+
+        highlight_tab = "NeoTreeTabInactive",
+        highlight_tab_active = "NeoTreeTabActive",
+        highlight_background = "NeoTreeTabInactive",
+        highlight_separator = "NeoTreeTabSeparatorInactive",
+        highlight_separator_active = "NeoTreeTabSeparatorActive",
+      },
+      window = {
+        mappings = {
+          ["P"] = {
+            "toggle_preview",
+            config = {
+              use_float = true,
+              use_image_nvim = true,
+              title = "Neo-tree Preview",
+            },
+          },
+        },
       },
     },
   },
