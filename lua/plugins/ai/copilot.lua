@@ -12,12 +12,27 @@ return {
         hide_during_completion = true,
         debounce = 75,
         keymap = {
-          accept = "<M-space>",
+          accept = "<Tab><Tab>",
           accept_word = false,
           accept_line = false,
           next = "<M-]>",
           prev = "<M-[>",
           dismiss = "<C-]>",
+        },
+      },
+      panel = {
+        enabled = true,
+        auto_refresh = true,
+        keymap = {
+          jump_prev = "[[",
+          jump_next = "]]",
+          accept = "<CR>",
+          refresh = "gr",
+          open = "<M-CR>",
+        },
+        layout = {
+          position = "bottom",
+          ratio = 0.4,
         },
       },
       -- panel = { enabled = false },

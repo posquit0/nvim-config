@@ -36,11 +36,14 @@ require("lazy").setup({
 
     --- MISC
     { import = "plugins.editor" },
-    { import = "plugins.copilot" },
     { import = "plugins.image" },
 
     --- Languages
     { import = "plugins.languages.terraform" },
+
+    --- AI
+    { import = "plugins.ai.avante" },
+    { import = "plugins.ai.copilot" },
 
     --- Integrations
     { import = "plugins.integrations.wakatime" },
