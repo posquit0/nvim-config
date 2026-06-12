@@ -1,134 +1,57 @@
 local logo = {
-  [[                                                                   ]],
-  [[      ████ ██████           █████      ██                    ]],
-  [[     ███████████             █████                            ]],
-  [[     █████████ ███████████████████ ███   ███████████  ]],
-  [[    █████████  ███    █████████████ █████ ██████████████  ]],
-  [[   █████████ ██████████ █████████ █████ █████ ████ █████  ]],
-  [[ ███████████ ███    ███ █████████ █████ █████ ████ █████ ]],
-  [[██████  █████████████████████ ████ █████ █████ ████ ██████]],
+  [[                                                                   ]],
+  [[      ████ ██████           █████      ██                    ]],
+  [[     ███████████             █████                            ]],
+  [[     █████████ ███████████████████ ███   ███████████  ]],
+  [[    █████████  ███    █████████████ █████ ██████████████  ]],
+  [[   █████████ ██████████ █████████ █████ █████ ████ █████  ]],
+  [[ ███████████ ███    ███ █████████ █████ █████ ████ █████ ]],
+  [[██████  █████████████████████ ████ █████ █████ ████ ██████]],
 }
 
+local function version()
+  local v = vim.version()
+  return " Neovim v" .. v.major .. "." .. v.minor .. "." .. v.patch
+end
 
 return {
   {
-    "goolord/alpha-nvim",
-    event = "VimEnter",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons"
-    },
+    "folke/snacks.nvim",
     keys = {
       {
         "<F12>",
-        "<cmd>Alpha<cr>",
-        desc = "Go to Alpha Dashboard",
+        function()
+          Snacks.dashboard()
+        end,
+        desc = "Go to Dashboard",
       },
     },
-    config = function(_, dashboard)
-      local alpha = require("alpha")
-      local dashboard = require("alpha.themes.dashboard")
-      local fortune = require("alpha.fortune")
-
-      -- Header
-      dashboard.section.header.val = logo
-      dashboard.section.header.opts = {
-        position = "center",
-        hl = "Title",
-      }
-
-
-      -- Quote
-      dashboard.section.quote = {
-        type = "text",
-        val = fortune(),
-        opts = {
-          position = "center",
-          hl = "Comment",
-        }
-      }
-
-
-      -- Buttons
-      dashboard.section.buttons.val = {
-        dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-        dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-        dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
-        dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
-        dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
-        dashboard.button("q", " " .. " Quit", ":qa<CR>"),
-      }
-      for _, button in ipairs(dashboard.section.buttons.val) do
-        button.opts.hl = "String"
-        button.opts.hl_shortcut = "Keyword"
-      end
-
-      dashboard.section.buttons.opts = {
-        spacing = 1,
-      }
-
-
-      -- Version Info
-      local function version()
-        local version = vim.version()
-        local nvim_version_info = " Neovim v" .. version.major .. "." .. version.minor .. "." .. version.patch
-
-        return nvim_version_info
-      end
-
-      dashboard.section.version_info = {
-        type = "text",
-        val = version(),
-        opts = {
-          position = "center",
-          hl = "Number",
-        }
-      }
-
-
-      -- Footer
-      dashboard.section.footer.opts.hl = "Number"
-      dashboard.section.footer.opts.position = "center"
-
-
-      -- Layout
-      dashboard.config.layout = {
-        { type = "padding", val = 5 },
-        dashboard.section.header,
-        { type = "padding", val = 5 },
-        dashboard.section.quote,
-        { type = "padding", val = 5 },
-        dashboard.section.buttons,
-        { type = "padding", val = 2 },
-        dashboard.section.version_info,
-        dashboard.section.footer,
-      }
-      alpha.setup(dashboard.opts)
-
-
-      -- Close Lazy and re-open when the dashboard is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "AlphaReady",
-          callback = function()
-            require("lazy").show()
-          end,
-        })
-      end
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "LazyVimStarted",
-        callback = function()
-          local stats = require("lazy").stats()
-          local total_plugins = stats.count
-          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-
-          dashboard.section.footer.val = dashboard.section.footer.val .. "\n⚡ Loaded " .. total_plugins .. " plugins in " .. ms .. "ms"
-          pcall(vim.cmd.AlphaRedraw)
-        end,
-      })
-    end,
+    opts = {
+      dashboard = {
+        preset = {
+          -- Buttons are written out explicitly (rather than relying on the
+          -- LazyVim preset defaults) so the dashboard's actions stay visible
+          -- in this config. The pick actions follow the configured picker.
+          -- stylua: ignore
+          keys = {
+            { icon = " ", key = "f", desc = "Find File",       action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "n", desc = "New File",        action = ":ene | startinsert" },
+            { icon = " ", key = "r", desc = "Recent Files",    action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "g", desc = "Find Text",       action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "c", desc = "Config",          action = ":lua Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath('config') })" },
+            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = "󰒲 ", key = "l", desc = "Lazy",            action = ":Lazy" },
+            { icon = " ", key = "q", desc = "Quit",            action = ":qa" },
+          },
+          header = table.concat(logo, "\n"),
+        },
+        sections = {
+          { section = "header", padding = 2 },
+          { section = "keys", gap = 1, padding = 2 },
+          { text = { { version(), hl = "Number" } }, align = "center", padding = 1 },
+          { section = "startup" },
+        },
+      },
+    },
   },
 }
