@@ -1,10 +1,10 @@
+-- LazyVim's ai.copilot extra (imported in config.lazy) sets up copilot.lua
+-- and feeds completions into blink.cmp via fang2hou/blink-copilot.
+-- The full opts are kept explicit here, including the values that match
+-- copilot.lua's own defaults, so the behaviour stays visible in this config.
 return {
-  -- Fully featured & enhanced replacement for copilot.vim complete with API for interacting with Github Copilot
   {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    -- event = "BufReadPost",
-    build = ":Copilot auth",
     opts = {
       suggestion = {
         enabled = true,
@@ -35,43 +35,10 @@ return {
           ratio = 0.4,
         },
       },
-      -- panel = { enabled = false },
       filetypes = {
         yaml = true,
         markdown = true,
         help = true,
-      },
-    },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        "zbirenbaum/copilot-cmp",
-        opts = {},
-        config = function(_, opts)
-          local copilot_cmp = require("copilot_cmp")
-          copilot_cmp.setup(opts)
-          -- attach cmp source whenever copilot attaches
-          -- fixes lazy-loading issues with the copilot cmp source
-          LazyVim.lsp.on_attach(function()
-            copilot_cmp._on_insert_enter({})
-          end, "copilot")
-        end,
-        specs = {
-          {
-            "hrsh7th/nvim-cmp",
-            optional = true,
-            ---@param opts cmp.ConfigSchema
-            opts = function(_, opts)
-              table.insert(opts.sources, 1, {
-                name = "copilot",
-                group_index = 1,
-                priority = 100,
-              })
-            end,
-          },
-        },
       },
     },
   },
