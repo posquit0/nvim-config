@@ -27,7 +27,7 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "lazyvim.plugins.extras.ui.alpha" },
-    { import = "lazyvim.plugins.extras.lsp.none-ls" },
+    { import = "lazyvim.plugins.extras.lang.terraform" },
     -- import/override with your plugins
 
     --- UI
@@ -37,9 +37,6 @@ require("lazy").setup({
     --- MISC
     { import = "plugins.editor" },
     { import = "plugins.image" },
-
-    --- Languages
-    { import = "plugins.languages.terraform" },
 
     --- AI
     { import = "plugins.ai.avante" },
