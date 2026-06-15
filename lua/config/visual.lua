@@ -23,6 +23,8 @@ local options = {
     cursorline = true, -- Highlight current line
     showmatch = true, -- Show matching brackets
     matchtime = 5, -- Bracket blinking
+
+    colorcolumn = "80", -- Mark the 80th column (ported from the legacy vimrc; the highlight color comes from the colorscheme)
   },
   g = {},
 }
