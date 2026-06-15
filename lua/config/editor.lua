@@ -4,8 +4,6 @@ vim.g.editorconfig = true
 --[[
   Encoding
 --]]
--- NOTE: `encoding` is intentionally not set: Neovim is always UTF-8
--- internally and `:h 'encoding'` documents that changing it is not allowed.
 -- File-content encoding candidates for the current buffer
 vim.opt.fileencodings = "utf-8,euc-kr"
 -- Add empty newlines at the end of files
