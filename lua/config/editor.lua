@@ -4,9 +4,7 @@ vim.g.editorconfig = true
 --[[
   Encoding
 --]]
--- String-encoding used internally and for RPC communication
-vim.opt.encoding = "utf-8"
--- File-content encoding for the current buffer
+-- File-content encoding candidates for the current buffer
 vim.opt.fileencodings = "utf-8,euc-kr"
 -- Add empty newlines at the end of files
 vim.opt.endofline = true
@@ -40,6 +38,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 -- Highlight dynamically as pattern is typed
 vim.opt.incsearch = true
+-- Preview :substitute results live in a split window
+vim.opt.inccommand = "split"
 
 --[[
   Backup and Swap
