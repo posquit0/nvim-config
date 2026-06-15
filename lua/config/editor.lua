@@ -39,7 +39,6 @@ vim.opt.smartcase = true
 -- Highlight dynamically as pattern is typed
 vim.opt.incsearch = true
 -- Preview :substitute results live in a split window
--- (ported from the legacy vimrc's `has('nvim')` block; overrides LazyVim's "nosplit")
 vim.opt.inccommand = "split"
 
 --[[
