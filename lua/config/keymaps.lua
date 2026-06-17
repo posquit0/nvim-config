@@ -6,7 +6,10 @@ local keymap = vim.keymap.set
 
 -- <Esc> is too annoying to type
 keymap("i", "jkj", "<ESC>")
-keymap("t", "jkj", "<C-\\><C-n>")
+-- NOTE: intentionally NOT mapped in terminal mode. A `jkj` terminal mapping
+-- makes `j` a prefix, so Neovim waits `timeoutlen` on every `j` to see if `kj`
+-- follows — which makes TUIs run in a terminal (e.g. lazygit via <leader>gg,
+-- where `j` moves down) feel very laggy. Use <C-\><C-n> to leave terminal mode.
 
 
 --[[
