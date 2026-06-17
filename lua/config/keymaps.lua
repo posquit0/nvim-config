@@ -6,7 +6,6 @@ local keymap = vim.keymap.set
 
 -- <Esc> is too annoying to type
 keymap("i", "jkj", "<ESC>")
-keymap("t", "jkj", "<C-\\><C-n>")
 
 
 --[[
