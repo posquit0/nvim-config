@@ -49,6 +49,7 @@ require("lazy").setup({
 
     --- Languages
     { import = "plugins.languages.terraform" },
+    { import = "plugins.languages.yaml" },
 
     --- AI
     { import = "plugins.ai.avante" },
