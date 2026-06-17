@@ -44,6 +44,9 @@ require("lazy").setup({
     { import = "plugins.editor" },
     { import = "plugins.image" },
 
+    --- Git
+    { import = "plugins.git" },
+
     --- Languages
     { import = "plugins.languages.terraform" },
 
