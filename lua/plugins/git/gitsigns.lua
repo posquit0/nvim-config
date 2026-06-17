@@ -22,6 +22,13 @@ return {
       -- Also attach in untracked files so their additions get signs
       opts.attach_to_untracked = true
 
+      -- Tint the line-NUMBER column by git status on changed lines
+      -- (GitSignsAddNr/ChangeNr/DeleteNr) — the "numbers show git state" look.
+      -- Needs 'number' or 'relativenumber' on (both are). linehl tints the whole
+      -- line and is louder, so it stays off and is toggleable instead.
+      opts.numhl = true
+      opts.linehl = false
+
       -- Rounded border for the hunk preview popup
       opts.preview_config = { border = "rounded", style = "minimal", relative = "cursor", row = 0, col = 1 }
 
@@ -40,6 +47,8 @@ return {
         map("n", "<leader>ght", gs.toggle_current_line_blame, "Toggle Line Blame")
         map("n", "<leader>ghw", gs.toggle_word_diff, "Toggle Word Diff")
         map("n", "<leader>ghx", gs.toggle_deleted, "Toggle Deleted")
+        map("n", "<leader>ghn", gs.toggle_numhl, "Toggle Number Highlight")
+        map("n", "<leader>ghl", gs.toggle_linehl, "Toggle Line Highlight")
       end
 
       return opts
