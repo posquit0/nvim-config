@@ -22,6 +22,10 @@ return {
       -- Also attach in untracked files so their additions get signs
       opts.attach_to_untracked = true
 
+      -- Tint the line-NUMBER column by git status on changed lines
+      opts.numhl = true
+      opts.linehl = false
+
       -- Rounded border for the hunk preview popup
       opts.preview_config = { border = "rounded", style = "minimal", relative = "cursor", row = 0, col = 1 }
 
