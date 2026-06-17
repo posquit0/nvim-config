@@ -15,6 +15,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Use neo-tree as the one and only file explorer.
+-- LazyVim auto-selects snacks.explorer for installs with install_version >= 8
+-- (see lazyvim.json), which would open *alongside* the custom neo-tree config
+-- in plugins/editor.lua — two explorers when running `nvim <dir>`. Pinning the
+-- explorer here (before lazy.setup, so LazyVim reads it while resolving its
+-- plugin spec) keeps neo-tree and disables snacks.explorer.
+vim.g.lazyvim_explorer = "neo-tree"
+
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
