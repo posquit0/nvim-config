@@ -5,6 +5,18 @@
 return {
   {
     "zbirenbaum/copilot.lua",
+    -- LazyVim's extra sets `build = ":Copilot auth"`, which re-runs auth on
+    -- every update and errors once signed in (copilot.lua v3). Only prompt when
+    -- no credentials exist yet, so fresh machines still get onboarded.
+    build = function()
+      local dir = (vim.env.XDG_CONFIG_HOME or vim.fn.expand("~/.config")) .. "/github-copilot"
+      local authed = vim.fn.filereadable(dir .. "/auth.db") == 1
+        or vim.fn.filereadable(dir .. "/apps.json") == 1
+        or vim.fn.filereadable(dir .. "/hosts.json") == 1
+      if not authed then
+        vim.cmd("Copilot auth")
+      end
+    end,
     opts = {
       suggestion = {
         enabled = true,
