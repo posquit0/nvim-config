@@ -24,13 +24,18 @@ return {
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
     -- stylua: ignore
+    -- NOTE: an adapter must be passed as `adapter=<name>`. A bare arg
+    -- (e.g. `CodeCompanionChat claude_code`) is parsed as a subcommand, ignored,
+    -- and the chat falls back to the default adapter — which is why the per-
+    -- adapter keymaps previously all opened the default/last-used adapter.
     keys = {
-      { "<leader>Aa", "<cmd>CodeCompanionActions<cr>",            mode = { "n", "v" }, desc = "CodeCompanion Actions" },
-      { "<leader>Ac", "<cmd>CodeCompanionChat Toggle<cr>",        mode = "n",          desc = "CodeCompanion Chat (toggle)" },
-      { "<leader>Ac", "<cmd>CodeCompanionChat Add<cr>",           mode = "v",          desc = "CodeCompanion Add selection" },
-      { "<leader>AC", "<cmd>CodeCompanionChat claude_code<cr>",   mode = "n",          desc = "CodeCompanion Chat (Claude Code)" },
-      { "<leader>Ax", "<cmd>CodeCompanionChat codex<cr>",         mode = "n",          desc = "CodeCompanion Chat (Codex)" },
-      { "<leader>Ai", "<cmd>CodeCompanion<cr>",                   mode = { "n", "v" }, desc = "CodeCompanion Inline" },
+      { "<leader>Aa", "<cmd>CodeCompanionActions<cr>",                  mode = { "n", "v" }, desc = "CodeCompanion Actions" },
+      { "<leader>Ac", "<cmd>CodeCompanionChat adapter=copilot<cr>",     mode = "n",          desc = "CodeCompanion Chat (Copilot)" },
+      { "<leader>AC", "<cmd>CodeCompanionChat adapter=claude_code<cr>", mode = "n",          desc = "CodeCompanion Chat (Claude Code)" },
+      { "<leader>Ax", "<cmd>CodeCompanionChat adapter=codex<cr>",       mode = "n",          desc = "CodeCompanion Chat (Codex)" },
+      { "<leader>At", "<cmd>CodeCompanionChat Toggle<cr>",              mode = "n",          desc = "CodeCompanion Chat (toggle last)" },
+      { "<leader>Ad", "<cmd>CodeCompanionChat Add<cr>",                 mode = "v",          desc = "CodeCompanion Add selection" },
+      { "<leader>Ai", "<cmd>CodeCompanion<cr>",                         mode = { "n", "v" }, desc = "CodeCompanion Inline" },
     },
     opts = {
       strategies = {
