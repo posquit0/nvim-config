@@ -47,6 +47,18 @@ return {
         cmd = { adapter = "copilot" },
       },
       adapters = {
+        http = {
+          -- CodeCompanion's copilot default model is "gpt-4.1", which this
+          -- Copilot account doesn't offer; Copilot then silently falls back to
+          -- its account default (a Claude model), so the "Copilot" chat answered
+          -- as Claude. Pin a GPT model this account actually has.
+          -- (List your models with `ga`/the model picker; change as you like.)
+          copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = { model = { default = "gpt-5.4" } },
+            })
+          end,
+        },
         acp = {
           -- Use the ChatGPT subscription (via `codex login`) instead of an API key.
           -- The id must match what codex-acp advertises: "chat-gpt" (hyphen),
