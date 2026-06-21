@@ -7,7 +7,7 @@
 -- Adapters wired here:
 --   * copilot     (default chat/inline) — GitHub Copilot subscription (copilot.lua token)
 --   * claude_code (ACP)                 — Claude Code subscription
---   * codex       (ACP, auth=chatgpt)   — ChatGPT subscription
+--   * codex       (ACP, auth=chat-gpt)  — ChatGPT subscription
 --
 -- One-time setup for the ACP CLIs (their bridge is spawned only when you open
 -- that adapter, so nothing breaks until then):
@@ -48,10 +48,13 @@ return {
       },
       adapters = {
         acp = {
-          -- Use the ChatGPT subscription (via `codex login`) instead of an API key
+          -- Use the ChatGPT subscription (via `codex login`) instead of an API key.
+          -- The id must match what codex-acp advertises: "chat-gpt" (hyphen),
+          -- not "chatgpt" — otherwise CodeCompanion falls back to the first
+          -- advertised method ("api-key") and auth fails.
           codex = function()
             return require("codecompanion.adapters").extend("codex", {
-              defaults = { auth_method = "chatgpt" },
+              defaults = { auth_method = "chat-gpt" },
             })
           end,
         },
