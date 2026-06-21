@@ -54,6 +54,7 @@ require("lazy").setup({
 
     --- AI
     { import = "plugins.ai.avante" },
+    { import = "plugins.ai.codecompanion" },
     { import = "plugins.ai.copilot" },
 
     --- Integrations
