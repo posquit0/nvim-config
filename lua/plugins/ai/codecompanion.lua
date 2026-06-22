@@ -35,7 +35,11 @@ return {
       { "<leader>Ax", "<cmd>CodeCompanionChat adapter=codex<cr>",       mode = "n",          desc = "CodeCompanion Chat (Codex)" },
       { "<leader>At", "<cmd>CodeCompanionChat Toggle<cr>",              mode = "n",          desc = "CodeCompanion Chat (toggle last)" },
       { "<leader>Ad", "<cmd>CodeCompanionChat Add<cr>",                 mode = "v",          desc = "CodeCompanion Add selection" },
-      { "<leader>Ai", "<cmd>CodeCompanion<cr>",                         mode = { "n", "v" }, desc = "CodeCompanion Inline" },
+      { "<leader>Ai", "<cmd>CodeCompanion<cr>",                         mode = "n",          desc = "CodeCompanion Inline" },
+      -- Visual mode must use ":" (not "<cmd>") so the selection range '<,'> is
+      -- passed; with "<cmd>" no range is sent and the inline assistant gets no
+      -- code context.
+      { "<leader>Ai", ":CodeCompanion<cr>",                             mode = "v",          desc = "CodeCompanion Inline (selection)" },
     },
     opts = {
       strategies = {
