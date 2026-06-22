@@ -41,6 +41,11 @@ return {
       -- "<cmd>" would pass no range, which left inline with no context.
       { "<leader>Ai", ":%CodeCompanion<cr>",                            mode = "n",          desc = "CodeCompanion Inline (file)" },
       { "<leader>Ai", ":CodeCompanion<cr>",                             mode = "v",          desc = "CodeCompanion Inline (selection)" },
+      -- Insert-mode "AI" chord prefix <M-A> (fire actions without leaving
+      -- insert). Add more under it later, e.g. <M-A>c for chat. <M-A>i runs the
+      -- inline assistant on the whole current file (vim.cmd avoids the <cmd>
+      -- no-range issue and works straight from insert mode).
+      { "<M-A>i", function() vim.cmd("%CodeCompanion") end,             mode = "i",          desc = "CodeCompanion Inline (file, from insert)" },
     },
     opts = {
       strategies = {
