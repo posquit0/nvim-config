@@ -35,10 +35,11 @@ return {
       { "<leader>Ax", "<cmd>CodeCompanionChat adapter=codex<cr>",       mode = "n",          desc = "CodeCompanion Chat (Codex)" },
       { "<leader>At", "<cmd>CodeCompanionChat Toggle<cr>",              mode = "n",          desc = "CodeCompanion Chat (toggle last)" },
       { "<leader>Ad", "<cmd>CodeCompanionChat Add<cr>",                 mode = "v",          desc = "CodeCompanion Add selection" },
-      { "<leader>Ai", "<cmd>CodeCompanion<cr>",                         mode = "n",          desc = "CodeCompanion Inline" },
-      -- Visual mode must use ":" (not "<cmd>") so the selection range '<,'> is
-      -- passed; with "<cmd>" no range is sent and the inline assistant gets no
-      -- code context.
+      -- Inline needs a range so the assistant gets code as context. Normal mode
+      -- uses ":%CodeCompanion" → the whole current file (no selecting needed);
+      -- visual uses ":CodeCompanion" → the selection ('<,'> auto-prepended).
+      -- "<cmd>" would pass no range, which left inline with no context.
+      { "<leader>Ai", ":%CodeCompanion<cr>",                            mode = "n",          desc = "CodeCompanion Inline (file)" },
       { "<leader>Ai", ":CodeCompanion<cr>",                             mode = "v",          desc = "CodeCompanion Inline (selection)" },
     },
     opts = {
