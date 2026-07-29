@@ -40,6 +40,7 @@ require("lazy").setup({
     --- UI
     { import = "plugins.ui.colorschemes" },
     { import = "plugins.ui.dashboard" },
+    { import = "plugins.ui.noice" },
 
     --- MISC
     { import = "plugins.diagnostics" },
