@@ -14,6 +14,11 @@ return {
         ignore_whitespace = false,
       }
       opts.current_line_blame_formatter = "  <author>, <author_time:%Y-%m-%d> · <summary>"
+      -- Uncommitted lines are already marked in the number column (numhl), so
+      -- skip the "Not Committed Yet" virtual text
+      opts.current_line_blame_formatter_nc = function()
+        return {}
+      end
 
       -- Show intra-line word-level diff inside changed regions (off by default;
       -- toggle with <leader>ghw below)
