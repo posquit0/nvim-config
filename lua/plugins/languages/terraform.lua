@@ -100,43 +100,51 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
   end,
 })
 
-local terraform_validate_wrapped = false
-
 return {
   -- The lang.terraform extra installs tflint via mason but only wires
   -- terraform_validate into nvim-lint, so tflint never actually runs. Add it.
-  -- tflint catches provider/best-practice issues; terraform_validate (kept)
-  -- covers `terraform validate` (needs an initialized dir). Both can run.
+  --
+  -- terraform_validate is dropped from nvim-lint: it publishes diagnostics
+  -- only to the buffer that was linted, so directory-scoped validate results
+  -- went stale in sibling buffers until each one was written. terraformls's
+  -- validateOnSave (below) covers `terraform validate` instead.
   {
     "mfussenegger/nvim-lint",
     optional = true,
     opts = function(_, opts)
       opts.linters_by_ft = opts.linters_by_ft or {}
       for _, ft in ipairs({ "terraform", "tf" }) do
-        local list = opts.linters_by_ft[ft] or {}
+        local list = vim.tbl_filter(function(linter)
+          return linter ~= "terraform_validate"
+        end, opts.linters_by_ft[ft] or {})
         if not vim.tbl_contains(list, "tflint") then
           table.insert(list, "tflint")
         end
         opts.linters_by_ft[ft] = list
       end
-
-      -- Upstream terraform_validate runs from nvim's cwd and points terraform
-      -- at the module via -chdir. Run it from the file's directory instead so
-      -- mise's shim resolves the project-pinned terraform version (see
-      -- plugins/integrations/mise.lua). Validation output is unchanged:
-      -- filenames are reported relative to the module dir either way.
-      if not terraform_validate_wrapped then
-        terraform_validate_wrapped = true
-        local lint = require("lint")
-        local upstream = lint.linters.terraform_validate
-        lint.linters.terraform_validate = function()
-          local linter = upstream()
-          linter.cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-          linter.args = { "validate", "-json" }
-          return linter
-        end
-      end
     end,
+  },
+
+  -- Run `terraform validate` from the language server on save (experimental
+  -- terraform-ls feature): one validate run per save, and diagnostics are
+  -- published to every file in the module, so fixing an error in one file
+  -- clears it from already-open sibling files immediately.
+  -- terraform-ls runs validate within the saved file's folder, so mise's shim
+  -- still resolves the project-pinned terraform version.
+  -- https://github.com/hashicorp/terraform-ls/blob/main/docs/SETTINGS.md
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        terraformls = {
+          init_options = {
+            experimentalFeatures = {
+              validateOnSave = true,
+            },
+          },
+        },
+      },
+    },
   },
 
   -- Same cwd treatment for `terraform fmt`: run from the file's directory so
