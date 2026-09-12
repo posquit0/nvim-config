@@ -12,11 +12,12 @@
 -- ANTHROPIC_API_KEY is unset). ACP providers also skip avante's per-provider
 -- setup, so loading no longer errors.
 --
--- One-time prerequisite (the binary is spawned only when you actually use
--- Avante, e.g. :AvanteAsk):
---   npm i -g @zed-industries/claude-code-acp
--- avante's built-in claude-code default calls `claude-agent-acp`, which is not
--- published on npm, so point it at Zed's maintained adapter (`claude-code-acp`).
+-- ACP adapters are installed by the global mise config (chezmoi):
+--   npm:@agentclientprotocol/claude-agent-acp  -> `claude-agent-acp`
+--   npm:@agentclientprotocol/codex-acp         -> `codex-acp`
+-- They match avante's built-in `command` defaults, so only the overrides below
+-- are needed (avante deep-merges them over its defaults).
+-- Switch between them with <leader>ap (:AvanteSwitchProvider).
 return {
   {
     "yetone/avante.nvim",
@@ -25,8 +26,20 @@ return {
     opts = {
       provider = "claude-code",
       acp_providers = {
+        -- avante spawns ACP agents with ONLY `PATH` + this `env`. Without
+        -- `USER`, Claude Code can't find its macOS Keychain login and comes up
+        -- "Not logged in"; `HOME` lets it read ~/.claude (settings, CLAUDE.md).
         ["claude-code"] = {
-          command = "claude-code-acp",
+          env = {
+            HOME = os.getenv("HOME"),
+            USER = os.getenv("USER"),
+          },
+        },
+        -- Use the ChatGPT subscription (`codex login`) instead of an API key.
+        -- "chat-gpt" reuses an existing login and only opens the browser
+        -- sign-in when none exists. Without it avante skips `authenticate`.
+        ["codex"] = {
+          auth_method = "chat-gpt",
         },
       },
       providers = {
