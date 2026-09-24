@@ -46,6 +46,7 @@ require("lazy").setup({
     { import = "plugins.diagnostics" },
     { import = "plugins.editor" },
     { import = "plugins.image" },
+    { import = "plugins.treesitter" },
 
     --- Git
     { import = "plugins.git" },
