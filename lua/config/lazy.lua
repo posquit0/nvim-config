@@ -61,6 +61,7 @@ require("lazy").setup({
     { import = "plugins.ai.copilot" },
 
     --- Integrations
+    { import = "plugins.integrations.chezmoi" },
     { import = "plugins.integrations.mise" },
     { import = "plugins.integrations.wakatime" },
   },
