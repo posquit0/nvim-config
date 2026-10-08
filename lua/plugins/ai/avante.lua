@@ -21,6 +21,9 @@
 return {
   {
     "yetone/avante.nvim",
+    -- macOS caches code signatures by file identity. Remove old libraries
+    -- before building so make cannot overwrite a loaded .so in place.
+    build = vim.fn.has("macunix") == 1 and "make clean && make" or nil,
     ---@module 'avante'
     ---@type avante.Config
     opts = {
