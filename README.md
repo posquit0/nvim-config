@@ -16,8 +16,29 @@
 ```sh
 $ cd ~
 $ git clone https://github.com/posquit0/nvim-config ~/.config/nvim
-$ nvim --headless "+Lazy! sync" +qa
+$ nvim --headless "+Lazy! restore" +qa
 ```
+
+Use `:Lazy restore` after pulling configuration changes to restore the plugin
+versions recorded in `lazy-lock.json`. `:Lazy sync` includes updates and rewrites
+the lockfile; use it only when intentionally updating plugins.
+
+### Updating plugins with chezmoi
+
+The dotfiles repository keeps `external_nvim` as a submodule. Since `external_`
+disables chezmoi filename attributes inside it, the dotfiles ignore rule excludes
+`~/.config/nvim/lazy-lock.json` from copying. An `after` hook links that file to
+the submodule's `lazy-lock.json` before the restore hook runs. Other nvim files
+are copied normally.
+
+1. Run `:Lazy update` on one machine and verify that Neovim works as expected.
+   The symlink writes lockfile changes directly to the source repository;
+   `chezmoi re-add` is no longer needed for this file.
+2. Review and commit `lazy-lock.json` in the nvim repository, then commit the
+   updated submodule reference in the parent dotfiles repository. Push both.
+3. On other machines, pull the dotfiles and updated submodule, then run
+   `chezmoi apply`. The dotfiles hook runs `Lazy restore` when the source
+   lockfile changes.
 
 
 ## Contributing
