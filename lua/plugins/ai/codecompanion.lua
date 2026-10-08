@@ -65,7 +65,7 @@ return {
           -- (List your models with `ga`/the model picker; change as you like.)
           copilot = function()
             return require("codecompanion.adapters").extend("copilot", {
-              schema = { model = { default = "gpt-5.4" } },
+              schema = { model = { default = "gpt-6.1-sol" } },
             })
           end,
         },
