@@ -58,14 +58,12 @@ return {
       },
       adapters = {
         http = {
-          -- CodeCompanion's copilot default model is "gpt-4.1", which this
-          -- Copilot account doesn't offer; Copilot then silently falls back to
-          -- its account default (a Claude model), so the "Copilot" chat answered
-          -- as Claude. Pin a GPT model this account actually has.
+          -- Pin a GPT model advertised by this Copilot account.
+          -- "gpt-6.1-sol" is unavailable and returns model_not_supported.
           -- (List your models with `ga`/the model picker; change as you like.)
           copilot = function()
             return require("codecompanion.adapters").extend("copilot", {
-              schema = { model = { default = "gpt-6.1-sol" } },
+              schema = { model = { default = "gpt-5.4" } },
             })
           end,
         },
