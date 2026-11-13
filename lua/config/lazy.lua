@@ -52,6 +52,7 @@ require("lazy").setup({
     { import = "plugins.git" },
 
     --- Languages
+    { import = "plugins.languages.markdown" },
     { import = "plugins.languages.terraform" },
     { import = "plugins.languages.yaml" },
 
