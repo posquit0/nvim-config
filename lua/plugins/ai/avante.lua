@@ -21,6 +21,9 @@
 return {
   {
     "yetone/avante.nvim",
+    dependencies = {
+      { "ColinKennedy/mega.cmdparse", dependencies = { "ColinKennedy/mega.logging" } },
+    },
     -- macOS caches code signatures by file identity. Remove old libraries
     -- before building so make cannot overwrite a loaded .so in place.
     build = vim.fn.has("macunix") == 1 and "make clean && make" or nil,
